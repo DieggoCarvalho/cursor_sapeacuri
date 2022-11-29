@@ -17,37 +17,38 @@ SELECT DISTINCT
 nm_pessoa PES_NOME,
 GETDATE() PES_DATA_CADASTRO,
 p.ie_pessoa PES_TIPO,
-p.tx_documento PES_CPF_CNPJ,
-p.tx_orgao_expedidor PES_ORGAO_EXPEDIDOR,
-p.dt_expedicao PES_DATA_EXPEDICAO,
+NULLIF(p.tx_documento, '') PES_CPF_CNPJ,
+NULLIF(p.tx_orgao_expedidor, '') PES_ORGAO_EXPEDIDOR,
+NULLIF(p.dt_expedicao, '') PES_DATA_EXPEDICAO,
 p.dt_nascimento PES_DATA_NASCIMENTO,
-p.tx_observacao PES_OBSERVACAO,
+NULLIF(p.tx_observacao, '') PES_OBSERVACAO,
+p.st_civil,
 Case 
-	When p.st_civil = 'C' Then '2202'
-	When p.st_civil = 'S' Then '2203'
-	When p.st_civil = 'D' Then '2204'
-	When p.st_civil = 'V' Then '2205'
-	wHEN p.st_civil = 'P' OR p.st_civil is null Then NULL
+	When p.st_civil = 'C' Then '2233'
+	When p.st_civil = 'S' Then '2234'
+	When p.st_civil = 'D' Then '2235'
+	When p.st_civil = 'V' Then '2236'
+	Else NULL
 End IEC_CODIGO,
-p.tx_profissao PES_PROFISSAO,
-p.ie_sexo PES_SEXO,
-pc.tx_naturalidade  PES_NATURALIDADE,
-UPPER(pc.tx_pais_nacionalidade)  PES_NACIONALIDADE,
-p.tx_email PES_EMAIL,
-p.tx_rg PES_RG,
-pc.nm_fantasia PES_NOME_FANTASIA,
+NULLIF(p.tx_profissao, '') PES_PROFISSAO,
+NULLIF(p.ie_sexo, '') PES_SEXO,
+NULLIF(pc.tx_naturalidade, '')  PES_NATURALIDADE,
+NULLIF(UPPER(pc.tx_pais_nacionalidade), '')  PES_NACIONALIDADE,
+NULLIF(p.tx_email, '') PES_EMAIL,
+NULLIF(p.tx_rg, '') PES_RG,
+NULLIF(pc.nm_fantasia, '') PES_NOME_FANTASIA,
 p.id_pessoa PES_COD_OLD,
 GETDATE() PES_DATA_MIGRACAO,
 /* GER_ENDERECO */
-e.tx_cep END_CEP,
-UPPER(e.ds_endereco) END_ENDERECO,
-e.sg_uf END_UF,
-UPPER(e.ds_cidade) END_CIDADE,
-UPPER(e.ds_bairro) END_BAIRRO,
-REPLACE(REPLACE(REPLACE(REPLACE(p.tx_telefone, '(', ''), ')', ''), '-', ''), ' ', '') END_TELEFONE,
-UPPER(e.ds_endereco_complemento) END_COMPLEMENTO,
+NULLIF(e.tx_cep, '') END_CEP,
+NULLIF(UPPER(e.ds_endereco), '') END_ENDERECO,
+NULLIF(e.sg_uf, '') END_UF,
+NULLIF(UPPER(e.ds_cidade), '') END_CIDADE,
+NULLIF(UPPER(e.ds_bairro), '') END_BAIRRO,
+NULLIF(REPLACE(REPLACE(REPLACE(REPLACE(p.tx_telefone, '(', ''), ')', ''), '-', ''), ' ', ''), '') END_TELEFONE,
+NULLIF(UPPER(e.ds_endereco_complemento), '') END_COMPLEMENTO,
 e.id_endereco END_COD_OLD,
-e.nr_endereco ENDP_NUMERO,
+NULLIF(e.nr_endereco, '') ENDP_NUMERO,
 'R' END_TIPO
 FROM
 SAPEACU_GERAL..cg_pessoa p
