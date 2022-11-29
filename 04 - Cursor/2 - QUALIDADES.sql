@@ -10,7 +10,7 @@ SELECT
 q.nm_qualidade QUA_QUALIDADE,
 q.id QUA_CODIGO_OLD
 FROM
-PALMEIRAS_RI..qualidade q
+SAPEACU_RI..qualidade q
 ORDER BY q.id
 /*==========================================================================================*/
 OPEN CURSO_PADRAO
@@ -20,7 +20,7 @@ OPEN CURSO_PADRAO
  BEGIN
 /*==========================================================================================*/
 		DECLARE @ENTIDADE INT
-		SET @ENTIDADE = 1061
+		SET @ENTIDADE = 1076
 /*==========================================================================================*/
 	/* IMO_QUALIDADE */
     INSERT INTO IMOVEIS..IMO_QUALIDADE

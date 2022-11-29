@@ -12,7 +12,7 @@ GETDATE() PES_DATA_CADASTRO,
 tx_documento_procurador PES_CPF_CNPJ,
 GETDATE() PES_DATA_MIGRACAO
 FROM
-PALMEIRAS_RI..ato_prenotado_parte
+SAPEACU_RI..ato_prenotado_parte
 WHERE
 nm_procurador <> ''
 
@@ -28,7 +28,7 @@ OPEN CURSO_PADRAO
  BEGIN
 /*==========================================================================================*/
 		DECLARE @ENTIDADE INT
-		SET @ENTIDADE = 1061
+		SET @ENTIDADE = 1076
 /*==========================================================================================*/
 
 		 /*GER_PESSOA*/

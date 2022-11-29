@@ -11,34 +11,19 @@ DECLARE CURSO_PADRAO CURSOR FOR
 
 SELECT
 /* IMO_IMOVEIS */
-h.nm_logradouro IMO_LOGRADOURO,
-h.sg_uf IMO_UF,
-Case
-	When h.nm_bairro = 'CAETÉ-AÇU' Then 1811
-	When h.nm_bairro = 'CENTRO' Then 1812
-	When h.nm_bairro = 'ZONA RURAL' Then 1814
-	When h.nm_bairro = 'SN' Then 1813
-	Else NULL
-	END BAI_CODIGO,
---h.tx_composicao_imovel IMO_CARACTERISTICAS,
---CASE
---    WHEN LEN(h.tx_composicao_imovel) > 8000
---	THEN SUBSTRING(h.tx_composicao_imovel, 1 ,8000)
---	ELSE h.tx_composicao_imovel
---	END AS IMO_CARACTERISTICAS_LEN,
-CAST(h.tx_composicao_imovel AS VARCHAR(8000)) IMO_CARACTERISTICAS,
+nullif(h.nm_logradouro, '') IMO_LOGRADOURO,
+nullif(h.sg_uf, '') IMO_UF,
+--(Select BAI_CODIGO from IMOVEIS..IMO_BAIRRO where UPPER(h.nm_bairro) = BAI_BAIRRO and ENT_CODIGO = 1076) BAI_CODIGO,
+nullif(CAST(h.tx_composicao_imovel AS VARCHAR(8000)), '') IMO_CARACTERISTICAS,
 h.vl_area+h.tx_area_complemento IMO_AREA_IMOVEL,
-m.nr_matricula_registro IMO_MATRICULA,
+nullif(m.nr_matricula_registro, '') IMO_MATRICULA,
 h.tx_complemento IMO_COMPLEMENTO,
 h.nr_endereco IMO_NUMERO,
 h.tx_cep IMO_CEP,
-h.tx_cadastro IMO_INSCRICAO_IMOBILIARIA,
+nullif(h.tx_cadastro, '') IMO_INSCRICAO_IMOBILIARIA,
 m.created_date IMO_DATA,
 m.id IMO_CODIGO_OLD,
-Case
-	When h.nm_cidade = 'PALMEIRAS' then 5197
-	Else NULL
-	End MUN_CODIGO,
+--(Select MUN_CODIGO from IMOVEIS..IMO_MUNICIPIO where UPPER(h.nm_cidade) = MUN_MUNICIPIO and ENT_CODIGO = 1076) MUN_CODIGO,
 Case
 	When h.nm_bairro = 'ZONA RURAL' then 1
 	Else NULL
@@ -57,12 +42,11 @@ Case
 	Else NULL
 	End ITI_CODIGO
 FROM
-PALMEIRAS_RI..ato_praticado a
-inner join PALMEIRAS_RI..matricula_registro m on a.id = m.fk_id_ato_praticado_ultimo
-left join PALMEIRAS_RI..historico_matricula h on a.fk_id_historico_matricula = h.id and m.id = h.fk_id_matricula
+SAPEACU_RI..ato_praticado a
+inner join SAPEACU_RI..matricula_registro m on a.id = m.fk_id_ato_praticado_ultimo
+left join SAPEACU_RI..historico_matricula h on a.fk_id_historico_matricula = h.id and m.id = h.fk_id_matricula
 --where m.nr_matricula_registro = 965
 order by m.nr_matricula_registro
-
 /*==========================================================================================*/
 OPEN CURSO_PADRAO
  FETCH NEXT FROM CURSO_PADRAO INTO
@@ -74,7 +58,7 @@ OPEN CURSO_PADRAO
  BEGIN
 /*==========================================================================================*/
 		DECLARE @ENTIDADE INT
-		SET @ENTIDADE = 1061
+		SET @ENTIDADE = 1076
 /*==========================================================================================*/
 	/* IMO_IMOVEIS */
     INSERT INTO IMOVEIS..IMO_IMOVEIS
