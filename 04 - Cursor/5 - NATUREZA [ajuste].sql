@@ -11,10 +11,10 @@ UPPER(n.ds_natureza) NAT_NOME,
 ato.ie_tipo_servico PRO_TIPO,
 n.id NAT_CODIGO_OLD
 FROM
-PALMEIRAS_RI..natureza n
-left join PALMEIRAS_RI..ato_prenotado ato on ato.fk_id_natureza = n.id
+SAPEACU_RI..natureza n
+left join SAPEACU_RI..ato_prenotado ato on ato.fk_id_natureza = n.id
 WHERE
-UPPER(n.ds_natureza) not in (select NAT_NOME from IMOVEIS..IMO_NATUREZA where ENT_CODIGO = 1061) and n.is_ativo = 1
+UPPER(n.ds_natureza) not in (select NAT_NOME from IMOVEIS..IMO_NATUREZA where ENT_CODIGO = 1076) and n.is_ativo = 1
 ORDER BY
 n.id
 
@@ -26,7 +26,7 @@ OPEN CURSO_PADRAO
  BEGIN
 /*==========================================================================================*/
 		DECLARE @ENTIDADE INT
-		SET @ENTIDADE = 1061
+		SET @ENTIDADE = 1076
 /*==========================================================================================*/
 	/* IMO_NATUREZA */
 	INSERT INTO IMOVEIS..IMO_NATUREZA

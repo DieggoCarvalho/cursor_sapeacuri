@@ -10,15 +10,15 @@ SELECT
 cer.nr_pedido PRO_PROTOCOLO,
 cer.created_date PRO_DATA_ABERTURA,
 cer.dt_previsao_entrega PRO_DATA_PREVISAO,
-(Select PES_COD from IMOVEIS..GER_PESSOA where PES_COD_OLD = cer.fk_id_pessoa_requerente and ENT_CODIGO = 1061) PES_COD_REPRESENTANTE,
+--(Select PES_COD from IMOVEIS..GER_PESSOA where PES_COD_OLD = cer.fk_id_pessoa_requerente and ENT_CODIGO = 1076) PES_COD_REPRESENTANTE,
 cer.id PRO_CODIGO_OLD,
-(Select ITP_CODIGO from IMOVEIS..IMO_TIPO_PROTOCOLO where ITP_DESCRICAO = tip.ds_tipo_certidao and ENT_CODIGO = 1061) ITP_CODIGO,
-'C' PRO_TIPO,
-(Select IMO_CODIGO from IMOVEIS..IMO_IMOVEIS where IMO_MATRICULA = mat.nr_matricula_registro and ENT_CODIGO = 1061) IMO_CODIGO
+--(Select ITP_CODIGO from IMOVEIS..IMO_TIPO_PROTOCOLO where ITP_DESCRICAO = tip.ds_tipo_certidao and ENT_CODIGO = 1076) ITP_CODIGO,
+'C' PRO_TIPO--,
+--(Select IMO_CODIGO from IMOVEIS..IMO_IMOVEIS where IMO_MATRICULA = mat.nr_matricula_registro and ENT_CODIGO = 1076) IMO_CODIGO
 FROM
-PALMEIRAS_RI..pedido_certidao cer
-inner join PALMEIRAS_RI..tipo_certidao tip on cer.fk_id_tipo_certidao = tip.id
-left join PALMEIRAS_RI..matricula_registro mat on cer.nr_matricula = mat.nr_matricula_registro
+SAPEACU_RI..pedido_certidao cer
+inner join SAPEACU_RI..tipo_certidao tip on cer.fk_id_tipo_certidao = tip.id
+left join SAPEACU_RI..matricula_registro mat on cer.nr_matricula = mat.nr_matricula_registro
 order by
 cer.nr_pedido
 /*==========================================================================================*/
@@ -33,7 +33,7 @@ WHILE @@FETCH_STATUS = 0
 BEGIN
 /*==============================*/
 		DECLARE @ENTIDADE INT
-		SET @ENTIDADE = 1061
+		SET @ENTIDADE = 1076
 /*==============================*/
 	/* IMO_PROTOCOLO */
 	INSERT INTO IMOVEIS..IMO_PROTOCOLO

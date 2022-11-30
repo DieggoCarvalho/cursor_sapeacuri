@@ -6,23 +6,19 @@ DECLARE
 DECLARE CURSO_PADRAO CURSOR FOR
 /*==========================================================================================*/
 
-
 SELECT
 /* IMO_ATOS */
-(SELECT PRO_CODIGO from IMOVEIS..IMO_PROTOCOLO where PRO_CODIGO_OLD = cer.id and ENT_CODIGO = 1061 and PRO_TIPO = 'C') PRO_CODIGO,
+--(SELECT PRO_CODIGO from IMOVEIS..IMO_PROTOCOLO where PRO_CODIGO_OLD = cer.id and ENT_CODIGO = 1076 and PRO_TIPO = 'C') PRO_CODIGO,
 'C' ATO_NATUREZA,
-(Select NAT_CODIGO from IMOVEIS..IMO_NATUREZA where NAT_CODIGO_OLD = tip.id and ENT_CODIGO = 1061 and PRO_TIPO = 'C') NAT_CODIGO,
-(Select IMO_CODIGO from IMOVEIS..IMO_IMOVEIS where IMO_MATRICULA = mat.nr_matricula_registro and ENT_CODIGO = 1061) IMO_CODIGO,
-(Select DAJ_CODIGO from IMOVEIS..PRO_DAJE where  DAJ_CODIGO_OLD = cer.fk_id_daje and ENT_CODIGO = 1061) DAJ_CODIGO,
+--(Select NAT_CODIGO from IMOVEIS..IMO_NATUREZA where NAT_CODIGO_OLD = tip.id and ENT_CODIGO = 1076 and PRO_TIPO = 'C') NAT_CODIGO,
+--(Select IMO_CODIGO from IMOVEIS..IMO_IMOVEIS where IMO_MATRICULA = mat.nr_matricula_registro and ENT_CODIGO = 1076) IMO_CODIGO,
+--(Select DAJ_CODIGO from IMOVEIS..PRO_DAJE where  DAJ_CODIGO_OLD = cer.fk_id_daje and ENT_CODIGO = 1076) DAJ_CODIGO,
 cer.id ATO_CODIGO_OLD,
-Case
-	When cer.ie_livro = 'L2' Then 2
-	Else NULL
-End as ATO_LIVRO
+iif(cer.ie_livro = 'L2', 2, NULL) ATO_LIVRO
 FROM
-PALMEIRAS_RI..pedido_certidao cer
-inner join PALMEIRAS_RI..tipo_certidao tip on cer.fk_id_tipo_certidao = tip.id
-left join PALMEIRAS_RI..matricula_registro mat on cer.nr_matricula = mat.nr_matricula_registro
+SAPEACU_RI..pedido_certidao cer
+inner join SAPEACU_RI..tipo_certidao tip on cer.fk_id_tipo_certidao = tip.id
+left join SAPEACU_RI..matricula_registro mat on cer.nr_matricula = mat.nr_matricula_registro
 order by
 cer.nr_pedido
 
@@ -37,7 +33,7 @@ OPEN CURSO_PADRAO
  BEGIN
 /*==========================================================================================*/
 		DECLARE @ENTIDADE INT
-		SET @ENTIDADE = 1061
+		SET @ENTIDADE = 1076
 /*==========================================================================================*/
 	/* IMO_ATOS */
 	INSERT INTO IMOVEIS..IMO_ATOS

@@ -9,18 +9,11 @@ SELECT
 td.ds_tipo_documento ITP_DESCRICAO,
 td.nr_prazo_prenotacao ITP_DIAS
 FROM
-PALMEIRAS_RI..tipo_documento td
+SAPEACU_RI..tipo_documento td
 WHERE
-td.is_ativo = 1
+td.is_ativo = 't'
 ORDER BY
 td.id
---UPPER(n.ds_natureza) ITP_DESCRICAO,
---*
---FROM
---PALMEIRAS_RI..natureza n
---WHERE n.is_ativo = 1
---ORDER BY
---n.id
 /*==========================================================================================*/
 OPEN CURSO_PADRAO
  FETCH NEXT FROM CURSO_PADRAO INTO
@@ -29,7 +22,7 @@ OPEN CURSO_PADRAO
  BEGIN
 /*==========================================================================================*/
 		DECLARE @ENTIDADE INT
-		SET @ENTIDADE = 1061
+		SET @ENTIDADE = 1076
 /*==========================================================================================*/
 	/* IMO_QUALIDADE */
     INSERT INTO IMOVEIS..IMO_TIPO_PROTOCOLO

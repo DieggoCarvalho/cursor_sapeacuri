@@ -13,19 +13,10 @@ cer.ds_tipo_certidao ITP_DESCRICAO,
 /* IMO_NATUREZA */
 cer.ds_tipo_certidao NAT_NOME,
 cer.id NAT_CODIGO_OLD,
-Case
-	When cer.ie_livro = 'L2' Then 'S'
-	Else NULL
-End NAT_LIVRO_2,
-Case
-	When cer.ie_livro = 'L3' Then 'S'
-	Else NULL
-End NAT_LIVRO_3,
+iif(cer.ie_livro = 'L2', 'S', NULL) NAT_LIVRO_2,
+iif(cer.ie_livro = 'L3', 'S', NULL) NAT_LIVRO_3,
 'S' NAT_LIVRO_CERT,
-Case
-	When cer.is_ativo = 1 Then 'S'
-	Else 'N'
-End NAT_ATIVO,
+iif(cer.is_ativo = 't', 'S', 'N') NAT_ATIVO,
 Case
 	When cer.ie_livro = 'L2' Then 2
 	When cer.ie_livro = 'L3' Then 3
@@ -33,9 +24,9 @@ Case
 End NAT_LINRO,
 'C' PRO_TIPO
 FROM
-PALMEIRAS_RI..tipo_certidao cer
+SAPEACU_RI..tipo_certidao cer
 WHERE
-cer.is_ativo = 1
+cer.is_ativo = 't'
 ORDER BY
 cer.id
 /*==========================================================================================*/
@@ -53,7 +44,7 @@ WHILE @@FETCH_STATUS = 0
 BEGIN
 /*==============================*/
 		DECLARE @ENTIDADE INT
-		SET @ENTIDADE = 1061
+		SET @ENTIDADE = 1076
 /*==============================*/
 
 	/* IMO_TIPO_PROTOCOLO */

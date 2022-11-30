@@ -8,14 +8,14 @@ DECLARE CURSO_PADRAO CURSOR FOR
 /*==========================================================================================*/
 SELECT DISTINCT
 /* IMO_ATOS_PARTICIPANTES */
-(Select ATO_CODIGO from IMOVEIS..IMO_ATOS where ATO_CODIGO_OLD = ato.id AND ENT_CODIGO = 1061) ATO_CODIGO,
-(Select PAR_CODIGO from IMOVEIS..IMO_PARTICIPANTES where PAR_CODIGO_OLD = par.id AND ENT_CODIGO = 1061) PAR_CODIGO,
+--(Select ATO_CODIGO from IMOVEIS..IMO_ATOS where ATO_CODIGO_OLD = ato.id AND ENT_CODIGO = 1076) ATO_CODIGO,
+--(Select PAR_CODIGO from IMOVEIS..IMO_PARTICIPANTES where PAR_CODIGO_OLD = par.id AND ENT_CODIGO = 1076) PAR_CODIGO,
 'S' IAP_PARTICIPA
 FROM
-PALMEIRAS_RI..ato_prenotado_parte par
-left join PALMEIRAS_RI..qualidade q on par.fk_id_qualidade = q.id
-left join PALMEIRAS_RI..ato_prenotado ato on ato.id = par.fk_id_ato_prenotado
-left join PALMEIRAS_RI..prenotado pre on pre.id = ato.fk_id_prenotado
+SAPEACU_RI..ato_prenotado_parte par
+left join SAPEACU_RI..qualidade q on par.fk_id_qualidade = q.id
+left join SAPEACU_RI..ato_prenotado ato on ato.id = par.fk_id_ato_prenotado
+left join SAPEACU_RI..prenotado pre on pre.id = ato.fk_id_prenotado
 
 /*==========================================================================================*/
 OPEN CURSO_PADRAO
@@ -25,7 +25,7 @@ OPEN CURSO_PADRAO
  BEGIN
 /*==========================================================================================*/
 		DECLARE @ENTIDADE INT
-		SET @ENTIDADE = 1061
+		SET @ENTIDADE = 1076
 /*==========================================================================================*/
 	/* IMO_QUALIDADE */
     INSERT INTO IMOVEIS..IMO_ATOS_PARTICIPANTES
